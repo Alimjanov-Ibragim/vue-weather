@@ -12,13 +12,19 @@
           class="search-bar"
           placeholder="Search..."
           v-model="query"
-          @keypress="fetchWeather"
+          @keyup="fetchWeather"
         />
       </div>
 
+      <h1 v-if="!weather.main" class="query-text">
+        Enter your request...
+      </h1>
+
       <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
         <div class="location-box">
-          <div class="location">{{ weather.name }}, {{ weather.sys.country }}</div>
+          <div class="location">
+            {{ weather.name }}, {{ weather.sys.country }}
+          </div>
           <div class="date">{{ dateBuilder() }}</div>
         </div>
 
@@ -43,16 +49,16 @@ export default {
     };
   },
   methods: {
-    fetchWeather(e) {
-      if (e.key == "Enter") {
-        fetch(
-          `${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`
-        )
-          .then(res => {
-            return res.json();
-          })
-          .then(this.setResults);
-      }
+    fetchWeather() {
+      // if (e.key == "Enter") {
+      fetch(
+        `${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`
+      )
+        .then(res => {
+          return res.json();
+        })
+        .then(this.setResults);
+      // }
     },
     setResults(results) {
       this.weather = results;
@@ -175,7 +181,8 @@ main {
   margin: 30px 0px;
   box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
-.weather-box .weather {
+.weather-box .weather,
+.query-text {
   color: #fff;
   font-size: 48px;
   font-weight: 700;
