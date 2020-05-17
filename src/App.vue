@@ -249,6 +249,7 @@ body {
   font-family: "montserrat", sans-serif;
 }
 #app {
+  position: relative;
   background-image: url("./assets/cold-bg.jpg");
   background-size: cover;
   background-position: bottom;
@@ -329,6 +330,10 @@ main {
   border-top: 1px solid #fff;
   padding: 10px;
   background: #000;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 .weather-box {
   text-align: center;
